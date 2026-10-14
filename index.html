@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Numivana Finance — See Your Money Clearly | Global Financial Calculators</title>
+  <meta name="description" content="Explore clear, scenario-driven financial calculators for investing, mortgages, compound interest, FIRE retirement, inflation, and CAGR. Built to show upside, downside, and real purchasing power." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #F7F6F1;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #EFECE6;
+      --bg-mint: #EBF5EE;
+      --primary: #147A46;
+      --primary-hover: #0F5E36;
+      --primary-light: #D1FAE5;
+      --text-dark: #0F1C18;
+      --text-muted: #52605B;
+      --text-light: #788681;
+      --border: #E2DFD7;
+      --footer-bg: #0A1815;
+      --warn-bg: #FEF3C7;
+      --warn-text: #92400E;
+      --danger-bg: #FEE2E2;
+      --danger-text: #991B1B;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-sm: 0 2px 8px rgba(15, 28, 24, 0.04);
+      --shadow-md: 0 12px 32px rgba(15, 28, 24, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .brand-font {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247, 246, 241, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 800;
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      background: none;
+      border: none;
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 6px 4px;
+      transition: color 0.2s;
+      font-family: inherit;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .currency-select {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 56px 0 44px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+      line-height: 1.08;
+      margin-bottom: 18px;
+      color: var(--text-dark);
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+      display: block;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 26px;
+    }
+
+    .search-box {
+      position: relative;
+      max-width: 520px;
+      margin-bottom: 14px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 15px 18px 15px 44px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      font-size: 0.96rem;
+      color: var(--text-dark);
+      box-shadow: var(--shadow-sm);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      pointer-events: none;
+    }
+
+    .popular-tags {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .tag-btn {
+      background: none;
+      border: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-size: 0.85rem;
+    }
+
+    .tag-btn:hover {
+      color: var(--primary);
+    }
+
+    /* Hero Preview Card */
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--bg-mint);
+      color: var(--primary);
+    }
+
+    .hero-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 16px;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .hero-stat {
+      background: var(--bg-cream);
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .hero-stat span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .hero-stat strong {
+      font-size: 1.2rem;
+      color: var(--text-dark);
+    }
+
+    /* Tool Grid Section */
+    .section-header {
+      margin: 36px 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .eyebrow {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      color: var(--text-dark);
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+      gap: 20px;
+      margin-bottom: 56px;
+    }
+
+    .calc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .calc-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .calc-card.active-card {
+      border: 2px solid var(--primary);
+      background: #FCFDFC;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--bg-mint);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+    }
+
+    .calc-card h3 {
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .calc-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .card-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+    }
+
+    .calc-card:hover .card-cta {
+      color: var(--primary);
+    }
+
+    /* Interactive Workspace */
+    .workspace-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 32px;
+      margin-bottom: 64px;
+      box-shadow: var(--shadow-md);
+      scroll-margin-top: 90px;
+    }
+
+    .workspace-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+
+    .workspace-title h2 {
+      font-size: 1.75rem;
+      margin-bottom: 6px;
+    }
+
+    .workspace-title p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .workspace-body {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .input-label-row label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .input-value-badge {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--bg-mint);
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .number-input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      background: var(--bg-cream);
+      margin-bottom: 8px;
+      outline: none;
+    }
+
+    .number-input:focus {
+      border-color: var(--primary);
+      background: #fff;
+    }
+
+    .range-slider {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Results Panel */
+    .results-panel {
+      background: var(--bg-cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+    }
+
+    .primary-result-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .primary-result-label {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .primary-result-value {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 4px 0;
+    }
+
+    .primary-result-sub {
+      font-size: 0.88rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .kpi-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px;
+    }
+
+    .kpi-box span {
+      display: block;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-box strong {
+      font-size: 1.05rem;
+      color: var(--text-dark);
+    }
+
+    /* Scenario Comparison Table (Upside / Base / Downside) */
+    .scenario-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .scenario-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .scenario-pill {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .scenario-pill.bad {
+      background: #FFF8F8;
+      border-color: #FECACA;
+    }
+
+    .scenario-pill.base {
+      background: var(--bg-cream);
+    }
+
+    .scenario-pill.good {
+      background: var(--bg-mint);
+      border-color: #A7F3D0;
+    }
+
+    .scenario-pill small {
+      display: block;
+      font-size: 0.73rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .scenario-pill.bad small { color: var(--danger-text); }
+    .scenario-pill.base small { color: var(--text-muted); }
+    .scenario-pill.good small { color: var(--primary); }
+
+    .scenario-pill strong {
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .scenario-pill span {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .insight-note {
+      background: var(--bg-mint);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      line-height: 1.5;
+    }
+
+    /* Info Steps Section */
+    .steps-section {
+      background: var(--bg-subtle);
+      border-radius: 22px;
+      padding: 44px 32px;
+      margin-bottom: 64px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+    }
+
+    .step-card h4 {
+      font-size: 1.08rem;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .step-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Secondary Views (About, Contact, Legal) */
+    .view-section {
+      display: none;
+      padding: 48px 0 72px;
+    }
+
+    .view-section.active {
+      display: block;
+    }
+
+    .content-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 840px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .content-card h1 {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+
+    .content-card h3 {
+      margin: 24px 0 10px;
+      font-size: 1.25rem;
+    }
+
+    .content-card p, .content-card li {
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      font-size: 1rem;
+    }
+
+    .content-card ul {
+      padding-left: 20px;
+      margin-bottom: 18px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--footer-bg);
+      color: #D5E0DC;
+      padding: 56px 0 36px;
+      margin-top: 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-brand {
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .footer-desc {
+      color: #94A8A1;
+      font-size: 0.92rem;
+      max-width: 360px;
+      margin-bottom: 16px;
+    }
+
+    .footer-col h4 {
+      color: #fff;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links button {
+      background: none;
+      border: none;
+      color: #B0C2BC;
+      font-size: 0.92rem;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+      transition: color 0.2s;
+    }
+
+    .footer-links button:hover {
+      color: #4ADE80;
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.84rem;
+      color: #788E87;
+    }
+
+    @media (max-width: 920px) {
+      .hero, .workspace-body, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .kpi-grid, .scenario-grid {
+        grid-template-columns: 1fr;
+      }
+      .workspace-wrapper {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVIGATION -->
+  <header>
+    <div class="nav-container">
+      <div class="brand" onclick="switchView('home')">
+        <div class="brand-icon">N</div>
+        <span class="brand-font">Numivana</span>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-link active" id="nav-home" onclick="switchView('home')">Calculators</button>
+        <button class="nav-link" id="nav-how" onclick="scrollToHowItWorks()">How it works</button>
+        <button class="nav-link" id="nav-about" onclick="switchView('about')">About</button>
+        <button class="nav-link" id="nav-contact" onclick="switchView('contact')">Contact</button>
+      </nav>
+
+      <div class="nav-actions">
+        <select id="currency-switcher" class="currency-select" onchange="changeCurrency(this.value)" aria-label="Select Currency">
+          <option value="USD">$ USD (Global)</option>
+          <option value="EUR">€ EUR (Europe)</option>
+          <option value="GBP">£ GBP (UK)</option>
+          <option value="INR">₹ INR (India)</option>
+        </select>
+        <button class="btn-primary" onclick="scrollToTools()">Explore tools</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOME VIEW (CALCULATORS & WORKSPACE) -->
+  <main id="view-home" class="view-section active" style="padding-top: 0;">
+    <div class="container">
+
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <div>
+          <h1>See your money <span>clearly.</span></h1>
+          <p>Explore scenario-based financial calculators for investing, mortgages, compounding, and retirement—built to show upside, downside, and real purchasing power.</p>
+
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="calc-search" placeholder="Search SIP, Mortgage, EMI, CAGR, FIRE, or Inflation..." oninput="filterCalculators(this.value)" />
+          </div>
+
+          <div class="popular-tags">
+            <span>Popular tools:</span>
+            <button class="tag-btn" onclick="selectCalculator('sip')">Investment / SIP</button> ·
+            <button class="tag-btn" onclick="selectCalculator('emi')">Mortgage / EMI</button> ·
+            <button class="tag-btn" onclick="selectCalculator('compound')">Compound Interest</button> ·
+            <button class="tag-btn" onclick="selectCalculator('fire')">FIRE Retirement</button>
+          </div>
+        </div>
+
+        <!-- HERO PREVIEW CARD -->
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <span class="badge">● Numivana Planner</span>
+            <span style="font-size: 0.75rem; color: var(--text-light); font-weight: 600;">LIVE SCENARIOS</span>
+          </div>
+          <h3>Small steps. Clearer goals.</h3>
+          <div class="hero-stat-grid">
+            <div class="hero-stat">
+              <span>Monthly Investment</span>
+              <strong id="hero-preview-monthly">$500</strong>
+            </div>
+            <div class="hero-stat">
+              <span>10-Yr Projected (12%)</span>
+              <strong id="hero-preview-total" style="color: var(--primary);">$116,170</strong>
+            </div>
+          </div>
+          <svg viewBox="0 0 360 110" width="100%" height="110" style="background: var(--bg-mint); border-radius: 10px; padding: 8px;">
+            <path d="M 12 96 Q 110 88, 190 62 T 348 16" fill="none" stroke="#147A46" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M 12 96 Q 110 92, 190 78 T 348 48" fill="none" stroke="#788681" stroke-width="2" stroke-dasharray="4 4"/>
+            <circle cx="348" cy="16" r="5" fill="#147A46" />
+          </svg>
+          <div style="display:flex; justify-content:space-between; font-size:0.78rem; color:var(--text-muted); margin-top:10px;">
+            <span>Solid: Compounded Growth</span>
+            <span>Dashed: Inflation-Adjusted Real Value</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CALCULATOR CARDS GRID -->
+      <section id="tools-grid-section">
+        <div class="section-header">
+          <div>
+            <div class="eyebrow">The Numivana Toolkit</div>
+            <h2>Start with the number you need</h2>
+            <p>Purpose-built financial tools with best-case, base-case, and worst-case clarity.</p>
+          </div>
+        </div>
+
+        <div class="calc-grid" id="calculator-cards-container">
+          <!-- Dynamically populated by JS -->
+        </div>
+      </section>
+
+      <!-- INTERACTIVE CALCULATOR WORKSPACE -->
+      <section id="calculator-workspace" class="workspace-wrapper">
+        <div class="workspace-header">
+          <div class="workspace-title">
+            <div class="eyebrow" id="ws-category">INVESTING & WEALTH</div>
+            <h2 id="ws-title">Regular Investment & SIP Calculator</h2>
+            <p id="ws-desc">Estimate future portfolio value alongside inflation-adjusted purchasing power and market return bands.</p>
+          </div>
+          <button class="btn-primary" onclick="resetCurrentCalculator()" style="background: var(--bg-subtle); color: var(--text-dark);">Reset Defaults</button>
+        </div>
+
+        <div class="workspace-body">
+          <!-- Left: Dynamic Inputs -->
+          <div id="ws-inputs"></div>
+
+          <!-- Right: Dynamic Outputs, Scenarios & Chart -->
+          <div class="results-panel">
+            <div class="primary-result-box">
+              <div class="primary-result-label" id="res-main-label">Projected Future Value</div>
+              <div class="primary-result-value" id="res-main-value">$0</div>
+              <div class="primary-result-sub" id="res-main-sub">Real Purchasing Power (Inflation-Adjusted): $0</div>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-box">
+                <span id="kpi-1-label">Total Invested</span>
+                <strong id="kpi-1-val">$0</strong>
+              </div>
+              <div class="kpi-box">
+                <span id="kpi-2-label">Estimated Gain</span>
+                <strong id="kpi-2-val">$0</strong>
+              </div>
+              <div class="kpi-box">
+                <span id="kpi-3-label">Wealth Multiple</span>
+                <strong id="kpi-3-val">0.0x</strong>
+              </div>
+            </div>
+
+            <!-- Dynamic SVG Growth Chart -->
+            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 20px;">
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:600; color:var(--text-muted); margin-bottom:8px;">
+                <span id="chart-title">Growth Trajectory Over Time</span>
+                <span style="color:var(--primary);">● Projected vs. Baseline</span>
+              </div>
+              <svg id="ws-svg-chart" viewBox="0 0 500 170" width="100%" height="170"></svg>
+            </div>
+
+            <!-- Good / Base / Bad Scenario Engine -->
+            <div class="scenario-section">
+              <div class="scenario-title">
+                <span>Upside vs. Downside Stress Test</span>
+                <span>What if conditions change?</span>
+              </div>
+              <div class="scenario-grid">
+                <div class="scenario-pill bad">
+                  <small id="scen-bad-title">Conservative / Bear</small>
+                  <strong id="scen-bad-val">$0</strong>
+                  <span id="scen-bad-sub">Lower return scenario</span>
+                </div>
+                <div class="scenario-pill base">
+                  <small id="scen-base-title">Expected / Base</small>
+                  <strong id="scen-base-val">$0</strong>
+                  <span id="scen-base-sub">Your current assumptions</span>
+                </div>
+                <div class="scenario-pill good">
+                  <small id="scen-good-title">Disciplined / Bull</small>
+                  <strong id="scen-good-val">$0</strong>
+                  <span id="scen-good-sub">Stronger upside scenario</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="insight-note" id="ws-insight">
+              Loading scenario insight...
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS SECTION -->
+      <section id="how-it-works-section" class="steps-section">
+        <div class="eyebrow">A Clearer Way To Plan</div>
+        <h2 style="font-size: 2rem; margin-bottom: 8px;">Simple tools. Better questions.</h2>
+        <p style="color: var(--text-muted); max-width: 680px;">A calculator will not make the decision for you, but it helps you understand the trade-offs, inflation impact, and margin of safety behind every number.</p>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <h4>1. Start with your baseline</h4>
+            <p>Enter your monthly investment, loan principal, or target retirement number using your local or preferred global currency.</p>
+          </div>
+          <div class="step-card">
+            <h4>2. Stress-test your assumptions</h4>
+            <p>Adjust expected returns, inflation rates, or extra monthly loan prepayments to see how sensitive your outcome is.</p>
+          </div>
+          <div class="step-card">
+            <h4>3. Compare upside & downside</h4>
+            <p>Never rely on a single static projection. Review conservative bear cases alongside disciplined bull cases before committing capital.</p>
+          </div>
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-light); margin-top: 22px;">
+          <strong>Important:</strong> Numivana calculators provide mathematical estimates based on user inputs. They are built for financial literacy and scenario planning, not personalized investment or tax advice.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ABOUT VIEW -->
+  <section id="view-about" class="view-section">
+    <div class="container">
+      <div class="content-card">
+        <div class="eyebrow">About Numivana Finance</div>
+        <h1>Built for financial clarity, not hype.</h1>
+        <p>Most online financial calculators only show a single, overly optimistic number. They tell you what your money could grow into, but ignore inflation, purchasing power erosion, and what happens when market returns underperform by 2%.</p>
+        <p><strong>Numivana Finance</strong> was created to bridge the gap between retail simplicity and institutional-grade scenario thinking. Every calculator on our platform automatically stress-tests your assumptions across three realities:</p>
+        <ul>
+          <li><strong>The Downside / Conservative Case:</strong> How resilient is your plan if markets deliver lower returns or rates stay high?</li>
+          <li><strong>The Base Case + Real Purchasing Power:</strong> What is your future corpus actually worth in today's money after accounting for inflation?</li>
+          <li><strong>The Disciplined Upside:</strong> How much faster can you reach financial freedom by stepping up contributions by 5–10% a year or making one extra mortgage payment annually?</li>
+        </ul>
+        <h3>Who We Serve</h3>
+        <p>Whether you are a student starting your first monthly investment, a professional optimizing your mortgage payoff, or an investor planning for FIRE (Financial Independence, Retire Early), Numivana gives you fast, private, browser-based math with zero clutter.</p>
+        <button class="btn-primary" onclick="switchView('home')" style="margin-top: 12px;">← Back to Calculators</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT VIEW -->
+  <section id="view-contact" class="view-section">
+    <div class="container">
+      <div class="content-card">
+        <div class="eyebrow">Get In Touch</div>
+        <h1>Questions, feedback, or calculator requests?</h1>
+        <p>We are constantly expanding the Numivana toolkit. If you spot a formula edge-case or want us to build a new quantitative calculator, send us a message below.</p>
+        <form onsubmit="handleContactSubmit(event)" style="margin-top: 24px;">
+          <div class="input-group">
+            <label style="display:block; font-weight:600; margin-bottom:6px;">Your Name</label>
+            <input type="text" class="number-input" required placeholder="Alex Morgan" />
+          </div>
+          <div class="input-group">
+            <label style="display:block; font-weight:600; margin-bottom:6px;">Email Address</label>
+            <input type="email" class="number-input" required placeholder="alex@example.com" />
+          </div>
+          <div class="input-group">
+            <label style="display:block; font-weight:600; margin-bottom:6px;">Message or Tool Request</label>
+            <textarea class="number-input" rows="4" required placeholder="Tell us which calculator or feature you would like to see next..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Send Message</button>
+          <p id="contact-confirm" style="color: var(--primary); font-weight: 600; margin-top: 14px; display: none;">✓ Thank you! Your message has been recorded.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY, DISCLAIMER & TERMS VIEW -->
+  <section id="view-legal" class="view-section">
+    <div class="container">
+      <div class="content-card">
+        <div class="eyebrow">Legal & Transparency</div>
+        <h1>Privacy Policy, Disclaimer & Terms of Use</h1>
+        <h3>1. 100% Client-Side Privacy Policy</h3>
+        <p>All calculations on Numivana Finance run locally inside your web browser using JavaScript. We do not store, transmit, or sell the salary, loan, or investment numbers you type into our calculators. Third-party analytics or advertising partners (such as Google AdSense) may use standard cookies to serve relevant ads.</p>
+        <h3>2. Financial & Educational Disclaimer</h3>
+        <p>Numivana Finance is an educational financial modeling platform. We are not a registered investment advisor, broker-dealer, or tax professional. All outputs are hypothetical mathematical projections based on constant-rate assumptions and do not guarantee future market performance. Always consult a qualified financial professional before making investment, tax, or borrowing decisions.</p>
+        <h3>3. Terms of Use</h3>
+        <p>By using this website, you agree that Numivana Finance is provided "as-is" without warranties of any kind, and shall not be held liable for any financial decisions made based on calculator estimates.</p>
+        <button class="btn-primary" onclick="switchView('home')" style="margin-top: 12px;">← Return to Calculators</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <div class="brand-icon">N</div>
+            <span>Numivana Finance</span>
+          </div>
+          <p class="footer-desc">See Your Money Clearly. Free scenario-driven financial calculators to help you explore estimates, stress-test assumptions, and make calmer money decisions.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore Tools</h4>
+          <ul class="footer-links">
+            <li><button onclick="selectCalculator('sip')">Investment & SIP Calculator</button></li>
+            <li><button onclick="selectCalculator('stepup')">Step-Up Investment Calculator</button></li>
+            <li><button onclick="selectCalculator('compound')">Compound Interest Calculator</button></li>
+            <li><button onclick="selectCalculator('emi')">Mortgage & Loan EMI Calculator</button></li>
+            <li><button onclick="selectCalculator('fire')">FIRE & Retirement Calculator</button></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Numivana</h4>
+          <ul class="footer-links">
+            <li><button onclick="switchView('about')">About</button></li>
+            <li><button onclick="switchView('contact')">Contact</button></li>
+            <li><button onclick="switchView('legal')">Privacy Policy</button></li>
+            <li><button onclick="switchView('legal')">Disclaimer</button></li>
+            <li><button onclick="switchView('legal')">Terms of Use</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Numivana Finance. All rights reserved.</span>
+        <span>Educational estimates only · Not personalized financial advice</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- APPLICATION ENGINE -->
+  <script>
+    // Currency configuration for Global + India support
+    const CURRENCIES = {
+      USD: { symbol: '$', locale: 'en-US', mult: 1 },
+      EUR: { symbol: '€', locale: 'de-DE', mult: 1 },
+      GBP: { symbol: '£', locale: 'en-GB', mult: 1 },
+      INR: { symbol: '₹', locale: 'en-IN', mult: 25 }
+    };
+
+    let currentCurrency = 'USD';
+    let activeCalcId = 'sip';
+    let currentInputs = {};
+
+    // Definition of all 8 Calculators
+    const CALCULATORS = [
+      {
+        id: 'sip',
+        title: 'Investment & SIP Calculator',
+        tag: 'INVESTING',
+        icon: '📈',
+        desc: 'Estimate future portfolio value from regular monthly investments with inflation & scenario bands.',
+        cta: 'Calculate SIP & DCA',
+        inputs: [
+          { key: 'monthly', label: 'Monthly Investment', min: 50, max: 25000, step: 50, def: 500, isCurrency: true },
+          { key: 'rate', label: 'Expected Annual Return (%)', min: 1, max: 25, step: 0.5, def: 12, suffix: '%' },
+          { key: 'years', label: 'Time Horizon (Years)', min: 1, max: 45, step: 1, def: 15, suffix: ' yrs' },
+          { key: 'inflation', label: 'Expected Annual Inflation (%)', min: 0, max: 12, step: 0.5, def: 4, suffix: '%' }
+        ]
+      },
+      {
+        id: 'stepup',
+        title: 'Step-Up SIP & Escalator',
+        tag: 'GROWTH',
+        icon: '🚀',
+        desc: 'See how increasing your monthly contribution by 5%–15% each year accelerates wealth creation.',
+        cta: 'Calculate Step-Up',
+        inputs: [
+          { key: 'monthly', label: 'Starting Monthly Investment', min: 50, max: 20000, step: 50, def: 500, isCurrency: true },
+          { key: 'stepup', label: 'Annual Contribution Increase (%)', min: 0, max: 30, step: 1, def: 10, suffix: '%' },
+          { key: 'rate', label: 'Expected Annual Return (%)', min: 1, max: 25, step: 0.5, def: 12, suffix: '%' },
+          { key: 'years', label: 'Time Horizon (Years)', min: 1, max: 40, step: 1, def: 15, suffix: ' yrs' }
+        ]
+      },
+      {
+        id: 'compound',
+        title: 'Compound Interest Calculator',
+        tag: 'WEALTH',
+        icon: '🌱',
+        desc: 'Model lumpsum + recurring compounding over time and see your exact Rule-of-72 doubling speed.',
+        cta: 'Calculate Compounding',
+        inputs: [
+          { key: 'principal', label: 'Initial Lumpsum Deposit', min: 0, max: 500000, step: 500, def: 10000, isCurrency: true },
+          { key: 'monthly', label: 'Monthly Addition', min: 0, max: 20000, step: 50, def: 300, isCurrency: true },
+          { key: 'rate', label: 'Annual Interest / Return (%)', min: 1, max: 25, step: 0.5, def: 10, suffix: '%' },
+          { key: 'years', label: 'Time Horizon (Years)', min: 1, max: 50, step: 1, def: 20, suffix: ' yrs' }
+        ]
+      },
+      {
+        id: 'cagr',
+        title: 'CAGR & Return Calculator',
+        tag: 'RETURNS',
+        icon: '🎯',
+        desc: 'Calculate the Compound Annual Growth Rate between starting and ending portfolio values.',
+        cta: 'Calculate CAGR',
+        inputs: [
+          { key: 'pv', label: 'Beginning Value / Initial Capital', min: 100, max: 1000000, step: 100, def: 10000, isCurrency: true },
+          { key: 'fv', label: 'Ending Value / Final Value', min: 100, max: 5000000, step: 500, def: 32000, isCurrency: true },
+          { key: 'years', label: 'Investment Period (Years)', min: 1, max: 40, step: 0.5, def: 8, suffix: ' yrs' }
+        ]
+      },
+      {
+        id: 'inflation',
+        title: 'Inflation & Purchasing Power',
+        tag: 'COST OF LIVING',
+        icon: '🛡️',
+        desc: 'See how inflation increases future living expenses and erodes idle cash sitting in a bank.',
+        cta: 'Calculate Inflation',
+        inputs: [
+          { key: 'amount', label: 'Current Expense or Cash Amount', min: 100, max: 500000, step: 100, def: 5000, isCurrency: true },
+          { key: 'inflation', label: 'Annual Inflation Rate (%)', min: 1, max: 15, step: 0.5, def: 4.5, suffix: '%' },
+          { key: 'years', label: 'Years Into the Future', min: 1, max: 40, step: 1, def: 15, suffix: ' yrs' }
+        ]
+      },
+      {
+        id: 'emi',
+        title: 'Mortgage & Loan EMI Calculator',
+        tag: 'LOANS & DEBT',
+        icon: '🏠',
+        desc: 'Calculate monthly loan payments and see how small extra prepayments save thousands in interest.',
+        cta: 'Calculate Loan & Payoff',
+        inputs: [
+          { key: 'loan', label: 'Loan / Mortgage Principal', min: 1000, max: 2000000, step: 1000, def: 250000, isCurrency: true },
+          { key: 'rate', label: 'Annual Interest Rate (%)', min: 1, max: 20, step: 0.25, def: 6.5, suffix: '%' },
+          { key: 'years', label: 'Loan Tenure (Years)', min: 1, max: 35, step: 1, def: 20, suffix: ' yrs' },
+          { key: 'extra', label: 'Extra Monthly Prepayment (Optional)', min: 0, max: 10000, step: 50, def: 150, isCurrency: true }
+        ]
+      },
+      {
+        id: 'fire',
+        title: 'Retirement & FIRE Calculator',
+        tag: 'RETIREMENT',
+        icon: '🧭',
+        desc: 'Estimate your Financial Independence nest egg using Safe Withdrawal Rate math and inflation.',
+        cta: 'Plan Retirement',
+        inputs: [
+          { key: 'currentAge', label: 'Current Age', min: 18, max: 70, step: 1, def: 28, suffix: ' yrs' },
+          { key: 'retireAge', label: 'Target Retirement Age', min: 25, max: 80, step: 1, def: 50, suffix: ' yrs' },
+          { key: 'monthlySave', label: 'Monthly Retirement Savings', min: 50, max: 30000, step: 50, def: 1200, isCurrency: true },
+          { key: 'monthlySpend', label: 'Desired Monthly Retirement Spend (Today\'s Value)', min: 200, max: 30000, step: 100, def: 3000, isCurrency: true },
+          { key: 'rate', label: 'Expected Portfolio Return (%)', min: 2, max: 18, step: 0.5, def: 10, suffix: '%' }
+        ]
+      },
+      {
+        id: 'salary',
+        title: 'Salary Hike & Real Wage Check',
+        tag: 'SALARY & INCOME',
+        icon: '💼',
+        desc: 'Calculate your new pay raise and check your real purchasing power gain after inflation.',
+        cta: 'Calculate Pay Raise',
+        inputs: [
+          { key: 'currentSalary', label: 'Current Annual / Monthly Pay', min: 500, max: 1000000, step: 500, def: 60000, isCurrency: true },
+          { key: 'hike', label: 'Pay Raise / Hike Percentage (%)', min: 0, max: 100, step: 0.5, def: 12, suffix: '%' },
+          { key: 'inflation', label: 'Current Inflation Rate (%)', min: 0, max: 15, step: 0.5, def: 4.5, suffix: '%' }
+        ]
+      }
+    ];
+
+    function fmtMoney(val) {
+      const c = CURRENCIES[currentCurrency];
+      if (!isFinite(val)) return c.symbol + '0';
+      return new Intl.NumberFormat(c.locale, {
+        style: 'currency',
+        currency: currentCurrency,
+        maximumFractionDigits: 0
+      }).format(Math.round(val));
+    }
+
+    function renderCalculatorCards(filterText = '') {
+      const container = document.getElementById('calculator-cards-container');
+      const query = filterText.trim().toLowerCase();
+      container.innerHTML = '';
+
+      CALCULATORS.forEach(calc => {
+        const matches = !query ||
+          calc.title.toLowerCase().includes(query) ||
+          calc.tag.toLowerCase().includes(query) ||
+          calc.desc.toLowerCase().includes(query);
+
+        if (!matches) return;
+
+        const card = document.createElement('div');
+        card.className = 'calc-card' + (calc.id === activeCalcId ? ' active-card' : '');
+        card.onclick = () => selectCalculator(calc.id, true);
+        card.innerHTML = `
+          <div>
+            <div class="card-top">
+              <div class="card-icon">${calc.icon}</div>
+              <span class="card-tag">${calc.tag}</span>
+            </div>
+            <h3>${calc.title}</h3>
+            <p>${calc.desc}</p>
+          </div>
+          <div class="card-cta">
+            <span>${calc.cta}</span>
+            <span>↗</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterCalculators(val) {
+      renderCalculatorCards(val);
+    }
+
+    function selectCalculator(id, shouldScroll = true) {
+      switchView('home', false);
+      activeCalcId = id;
+      const calc = CALCULATORS.find(c => c.id === id);
+      const mult = CURRENCIES[currentCurrency].mult;
+
+      document.getElementById('ws-category').innerText = calc.tag;
+      document.getElementById('ws-title').innerText = calc.title;
+      document.getElementById('ws-desc').innerText = calc.desc;
+
+      currentInputs = {};
+      calc.inputs.forEach(inp => {
+        currentInputs[inp.key] = inp.isCurrency ? inp.def * mult : inp.def;
+      });
+
+      renderInputs(calc);
+      renderCalculatorCards(document.getElementById('calc-search').value);
+      evaluateActiveCalculator();
+
+      if (shouldScroll) {
+        document.getElementById('calculator-workspace').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function resetCurrentCalculator() {
+      selectCalculator(activeCalcId, false);
+    }
+
+    function renderInputs(calc) {
+      const container = document.getElementById('ws-inputs');
+      const mult = CURRENCIES[currentCurrency].mult;
+      container.innerHTML = '';
+
+      calc.inputs.forEach(inp => {
+        const minVal = inp.isCurrency ? inp.min * mult : inp.min;
+        const maxVal = inp.isCurrency ? inp.max * mult : inp.max;
+        const stepVal = inp.isCurrency ? inp.step * mult : inp.step;
+        const val = currentInputs[inp.key];
+
+        const badgeText = inp.isCurrency ? fmtMoney(val) : (val + (inp.suffix || ''));
+
+        const group = document.createElement('div');
+        group.className = 'input-group';
+        group.innerHTML = `
+          <div class="input-label-row">
+            <label for="num-${inp.key}">${inp.label}</label>
+            <span class="input-value-badge" id="badge-${inp.key}">${badgeText}</span>
+          </div>
+          <input type="number" id="num-${inp.key}" class="number-input" value="${val}" min="${minVal}" max="${maxVal * 10}" step="${stepVal}"
+            oninput="updateInput('${inp.key}', this.value, 'num')" />
+          <input type="range" id="rng-${inp.key}" class="range-slider" value="${val}" min="${minVal}" max="${maxVal}" step="${stepVal}"
+            oninput="updateInput('${inp.key}', this.value, 'rng')" />
+        `;
+        container.appendChild(group);
+      });
+    }
+
+    function updateInput(key, rawValue, source) {
+      const val = parseFloat(rawValue) || 0;
+      currentInputs[key] = val;
+
+      const calc = CALCULATORS.find(c => c.id === activeCalcId);
+      const inp = calc.inputs.find(i => i.key === key);
+
+      if (source === 'num') {
+        const rng = document.getElementById('rng-' + key);
+        if (rng) rng.value = val;
+      } else {
+        const num = document.getElementById('num-' + key);
+        if (num) num.value = val;
+      }
+
+      const badge = document.getElementById('badge-' + key);
+      if (badge) {
+        badge.innerText = inp.isCurrency ? fmtMoney(val) : (val + (inp.suffix || ''));
+      }
+
+      evaluateActiveCalculator();
+    }
+
+    function calcSIPMath(monthly, annualRate, years) {
+      const n = Math.max(1, Math.round(years * 12));
+      const r = (annualRate / 100) / 12;
+      if (r === 0) return monthly * n;
+      return monthly * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+    }
+
+    function calcStepUpMath(monthly, stepUpPct, annualRate, years) {
+      const r = (annualRate / 100) / 12;
+      let balance = 0;
+      let currentMonthly = monthly;
+      let totalInvested = 0;
+      const series = [0];
+      const baseSeries = [0];
+
+      for (let y = 1; y <= years; y++) {
+        for (let m = 1; m <= 12; m++) {
+          balance = (balance + currentMonthly) * (1 + r);
+          totalInvested += currentMonthly;
+        }
+        series.push(balance);
+        baseSeries.push(totalInvested);
+        currentMonthly *= (1 + stepUpPct / 100);
+      }
+      return { fv: balance, invested: totalInvested, series, baseSeries };
+    }
+
+    function evaluateActiveCalculator() {
+      const id = activeCalcId;
+      let mainLabel = '', mainValue = '', mainSub = '';
+      let k1L = '', k1V = '', k2L = '', k2V = '', k3L = '', k3V = '';
+      let badT = '', badV = '', badS = '';
+      let baseT = '', baseV = '', baseS = '';
+      let goodT = '', goodV = '', goodS = '';
+      let insight = '';
+      let seriesPrimary = [];
+      let seriesSecondary = [];
+
+      if (id === 'sip') {
+        const P = currentInputs.monthly;
+        const r = currentInputs.rate;
+        const yrs = Math.max(1, currentInputs.years);
+        const inf = currentInputs.inflation;
+
+        const fv = calcSIPMath(P, r, yrs);
+        const invested = P * yrs * 12;
+        const gain = fv - invested;
+        const realFV = fv / Math.pow(1 + inf / 100, yrs);
+
+        const fvBad = calcSIPMath(P, Math.max(0, r - 2), yrs);
+        const fvGood = calcSIPMath(P, r + 2, yrs);
+
+        for (let y = 0; y <= yrs; y++) {
+          seriesPrimary.push(y === 0 ? 0 : calcSIPMath(P, r, y));
+          seriesSecondary.push(P * y * 12);
+        }
+
+        mainLabel = 'Projected Portfolio Value';
+        mainValue = fmtMoney(fv);
+        mainSub = `Inflation-Adjusted Real Purchasing Power: ${fmtMoney(realFV)}`;
+        k1L = 'Total Invested'; k1V = fmtMoney(invested);
+        k2L = 'Compounded Gain'; k2V = fmtMoney(gain);
+        k3L = 'Wealth Multiple'; k3V = (fv / Math.max(1, invested)).toFixed(2) + 'x';
+
+        badT = `Conservative (${Math.max(0, r - 2)}%)`; badV = fmtMoney(fvBad); badS = 'If markets underperform by 2%';
+        baseT = `Base Case (${r}%)`; baseV = fmtMoney(fv); baseS = 'Your target return';
+        goodT = `Bull Case (${r + 2}%)`; goodV = fmtMoney(fvGood); goodS = 'If markets outperform by 2%';
+
+        insight = `<strong>Reality Check:</strong> Over ${yrs} years, ${ ((gain / Math.max(1, fv)) * 100).toFixed(0) }% of your final corpus comes pure from compounding growth rather than your principal contributions. Accounting for ${inf}% annual inflation, your ${fmtMoney(fv)} will buy what <strong>${fmtMoney(realFV)}</strong> buys today.`;
+      }
+      else if (id === 'stepup') {
+        const P = currentInputs.monthly;
+        const step = currentInputs.stepup;
+        const r = currentInputs.rate;
+        const yrs = Math.max(1, currentInputs.years);
+
+        const res = calcStepUpMath(P, step, r, yrs);
+        const flatFV = calcSIPMath(P, r, yrs);
+        const bonus = res.fv - flatFV;
+
+        seriesPrimary = res.series;
+        seriesSecondary = res.baseSeries;
+
+        mainLabel = 'Step-Up Portfolio Value';
+        mainValue = fmtMoney(res.fv);
+        mainSub = `Step-Up Bonus vs. Flat SIP: +${fmtMoney(bonus)}`;
+        k1L = 'Total Invested'; k1V = fmtMoney(res.invested);
+        k2L = 'Flat SIP (0% Step-Up)'; k2V = fmtMoney(flatFV);
+        k3L = 'Wealth Multiple'; k3V = (res.fv / Math.max(1, res.invested)).toFixed(2) + 'x';
+
+        badT = 'Flat Contribution (0%)'; badV = fmtMoney(flatFV); badS = 'Never increasing monthly SIP';
+        baseT = `${step}% Annual Step-Up`; baseV = fmtMoney(res.fv); baseS = 'Matching annual salary hikes';
+        goodT = `${step + 5}% Annual Step-Up`; goodV = fmtMoney(calcStepUpMath(P, step + 5, r, yrs).fv); goodS = 'Aggressive savings escalation';
+
+        insight = `<strong>The Escalation Edge:</strong> Simply increasing your monthly contribution by <strong>${step}% once a year</strong> creates an extra <strong>${fmtMoney(bonus)}</strong> compared to keeping your monthly investment static.`;
+      }
+      else if (id === 'compound') {
+        const L = currentInputs.principal;
+        const M = currentInputs.monthly;
+        const r = currentInputs.rate;
+        const yrs = Math.max(1, currentInputs.years);
+
+        for (let y = 0; y <= yrs; y++) {
+          const lumpPart = L * Math.pow(1 + r / 100, y);
+          const sipPart = y === 0 ? 0 : calcSIPMath(M, r, y);
+          seriesPrimary.push(lumpPart + sipPart);
+          seriesSecondary.push(L + M * y * 12);
+        }
+
+        const fv = seriesPrimary[seriesPrimary.length - 1];
+        const invested = seriesSecondary[seriesSecondary.length - 1];
+        const doubleYrs = (72 / Math.max(0.5, r)).toFixed(1);
+
+        const fvBad = L * Math.pow(1 + Math.max(0, r - 2) / 100, yrs) + calcSIPMath(M, Math.max(0, r - 2), yrs);
+        const fvGood = L * Math.pow(1 + (r + 2) / 100, yrs) + calcSIPMath(M, r + 2, yrs);
+
+        mainLabel = 'Total Compounded Value';
+        mainValue = fmtMoney(fv);
+        mainSub = `Rule of 72: Your money doubles every ~${doubleYrs} years at ${r}%`;
+        k1L = 'Total Principal'; k1V = fmtMoney(invested);
+        k2L = 'Compound Interest'; k2V = fmtMoney(fv - invested);
+        k3L = 'Doubling Cycles'; k3V = (yrs / parseFloat(doubleYrs)).toFixed(1) + 'x';
+
+        badT = `Lower Rate (${Math.max(0, r - 2)}%)`; badV = fmtMoney(fvBad); badS = 'Conservative yield';
+        baseT = `Base Rate (${r}%)`; baseV = fmtMoney(fv); baseS = 'Selected compounding rate';
+        goodT = `Higher Rate (${r + 2}%)`; goodV = fmtMoney(fvGood); goodS = 'Outperformance scenario';
+
+        insight = `<strong>Rule of 72 Insight:</strong> At <strong>${r}%</strong> annual return, capital doubles approximately every <strong>${doubleYrs} years</strong>. Over ${yrs} years, you go through ${(yrs / parseFloat(doubleYrs)).toFixed(1)} doubling cycles.`;
+      }
+      else if (id === 'cagr') {
+        const pv = Math.max(1, currentInputs.pv);
+        const fv = Math.max(1, currentInputs.fv);
+        const yrs = Math.max(0.5, currentInputs.years);
+
+        const cagr = (Math.pow(fv / pv, 1 / yrs) - 1) * 100;
+        const multiple = fv / pv;
+
+        for (let y = 0; y <= Math.ceil(yrs); y++) {
+          seriesPrimary.push(pv * Math.pow(1 + cagr / 100, y));
+          seriesSecondary.push(pv * Math.pow(1.10, y)); // 10% S&P/Index benchmark
+        }
+
+        mainLabel = 'Implied Annualized Return (CAGR)';
+        mainValue = cagr.toFixed(2) + '%';
+        mainSub = `Total Capital Multiple: ${multiple.toFixed(2)}x over ${yrs} years`;
+        k1L = 'Starting Value'; k1V = fmtMoney(pv);
+        k2L = 'Net Profit'; k2V = fmtMoney(fv - pv);
+        k3L = '10% Index Benchmark'; k3V = fmtMoney(pv * Math.pow(1.10, yrs));
+
+        badT = '6% Fixed Yield'; badV = fmtMoney(pv * Math.pow(1.06, yrs)); badS = 'Bond / CD equivalent';
+        baseT = `Your CAGR (${cagr.toFixed(1)}%)`; baseV = fmtMoney(fv); baseS = 'Your actual growth';
+        goodT = '12% Equity Target'; goodV = fmtMoney(pv * Math.pow(1.12, yrs)); goodS = 'Strong equity compounding';
+
+        const diffBench = cagr - 10;
+        insight = `<strong>Benchmark Comparison:</strong> Your annualized return of <strong>${cagr.toFixed(2)}%</strong> ${diffBench >= 0 ? `outperforms the historical 10% equity market average by <strong>+${diffBench.toFixed(2)}% per year</strong>.` : `trails the 10% historical equity benchmark by <strong>${Math.abs(diffBench).toFixed(2)}% per year</strong>.`}`;
+      }
+      else if (id === 'inflation') {
+        const amt = currentInputs.amount;
+        const inf = currentInputs.inflation;
+        const yrs = Math.max(1, currentInputs.years);
+
+        const futureCost = amt * Math.pow(1 + inf / 100, yrs);
+        const erodedValue = amt / Math.pow(1 + inf / 100, yrs);
+
+        for (let y = 0; y <= yrs; y++) {
+          seriesPrimary.push(amt * Math.pow(1 + inf / 100, y));
+          seriesSecondary.push(amt / Math.pow(1 + inf / 100, y));
+        }
+
+        mainLabel = `Future Cost in ${yrs} Years`;
+        mainValue = fmtMoney(futureCost);
+        mainSub = `Purchasing Power of ${fmtMoney(amt)} Cash in ${yrs} Yrs: ${fmtMoney(erodedValue)}`;
+        k1L = 'Today\'s Cost'; k1V = fmtMoney(amt);
+        k2L = 'Extra Cost Added'; k2V = '+' + fmtMoney(futureCost - amt);
+        k3L = 'Purchasing Power Loss'; k3V = '-' + ((1 - erodedValue / amt) * 100).toFixed(1) + '%';
+
+        badT = `High Inflation (${inf + 2}%)`; badV = fmtMoney(amt * Math.pow(1 + (inf + 2) / 100, yrs)); badS = 'If inflation spikes +2%';
+        baseT = `Base Inflation (${inf}%)`; baseV = fmtMoney(futureCost); baseS = 'Expected future cost';
+        goodT = `Mild Inflation (${Math.max(1, inf - 1.5)}%)`; goodV = fmtMoney(amt * Math.pow(1 + Math.max(1, inf - 1.5) / 100, yrs)); goodS = 'Lower inflation environment';
+
+        insight = `<strong>Purchasing Power Erosion:</strong> At ${inf}% annual inflation, holding <strong>${fmtMoney(amt)}</strong> in non-interest cash for ${yrs} years silently destroys <strong>${((1 - erodedValue / amt) * 100).toFixed(1)}%</strong> of its buying power.`;
+      }
+      else if (id === 'emi') {
+        const L = currentInputs.loan;
+        const rAnnual = currentInputs.rate;
+        const yrs = Math.max(1, currentInputs.years);
+        const extra = currentInputs.extra;
+
+        const r = (rAnnual / 100) / 12;
+        const n = yrs * 12;
+        const emi = r === 0 ? L / n : L * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+        const baseTotalPaid = emi * n;
+        const baseInterest = baseTotalPaid - L;
+
+        // Simulate prepayment schedule
+        let bal = L;
+        let monthsWithExtra = 0;
+        let interestWithExtra = 0;
+        seriesPrimary = [L];
+        seriesSecondary = [L];
+
+        let balBase = L;
+        for (let m = 1; m <= n; m++) {
+          const intBase = balBase * r;
+          balBase = Math.max(0, balBase - (emi - intBase));
+
+          if (bal > 0) {
+            const intNow = bal * r;
+            interestWithExtra += intNow;
+            bal = Math.max(0, bal - (emi + extra - intNow));
+            monthsWithExtra++;
+          }
+          if (m % 12 === 0 || m === n) {
+            seriesPrimary.push(bal);
+            seriesSecondary.push(balBase);
+          }
+        }
+
+        const interestSaved = Math.max(0, baseInterest - interestWithExtra);
+        const monthsSaved = Math.max(0, n - monthsWithExtra);
+
+        mainLabel = 'Monthly Loan Payment (EMI)';
+        mainValue = fmtMoney(emi);
+        mainSub = extra > 0
+          ? `Adding ${fmtMoney(extra)}/mo saves ${fmtMoney(interestSaved)} & cuts ${(monthsSaved / 12).toFixed(1)} years!`
+          : 'Add an Extra Monthly Prepayment on the left to see interest savings!';
+        k1L = 'Total Principal'; k1V = fmtMoney(L);
+        k2L = 'Regular Total Interest'; k2V = fmtMoney(baseInterest);
+        k3L = 'Interest Saved'; k3V = fmtMoney(interestSaved);
+
+        badT = 'No Extra Prepayment'; badV = fmtMoney(baseInterest); badS = `Full ${yrs}-yr interest cost`;
+        baseT = `+${fmtMoney(extra)}/mo Extra`; baseV = fmtMoney(interestWithExtra); baseS = `Paid off in ${(monthsWithExtra / 12).toFixed(1)} yrs`;
+        goodT = `+${fmtMoney(extra * 2 || Math.round(emi * 0.15))}/mo Extra`;
+        // Quick calc for 2x extra
+        let bal2 = L, int2 = 0, m2 = 0;
+        const ex2 = extra * 2 || Math.round(emi * 0.15);
+        while (bal2 > 0 && m2 < n) {
+          const i2 = bal2 * r;
+          int2 += i2;
+          bal2 = Math.max(0, bal2 - (emi + ex2 - i2));
+          m2++;
+        }
+        goodV = fmtMoney(int2);
+        goodS = `Saves ${fmtMoney(Math.max(0, baseInterest - int2))} interest`;
+
+        insight = `<strong>Debt Payoff Accelerator:</strong> On a ${yrs}-year loan at ${rAnnual}%, you pay <strong>${fmtMoney(baseInterest)}</strong> in interest alone. Paying just <strong>${fmtMoney(extra || Math.round(emi * 0.1))}/month extra</strong> directly reduces principal and slashes your tenure.`;
+      }
+      else if (id === 'fire') {
+        const ageNow = currentInputs.currentAge;
+        const ageRet = Math.max(ageNow + 1, currentInputs.retireAge);
+        const yrs = ageRet - ageNow;
+        const saveMo = currentInputs.monthlySave;
+        const spendMo = currentInputs.monthlySpend;
+        const r = currentInputs.rate;
+
+        // 4% Rule (25x annual expenses adjusted for 3.5% inflation over yrs)
+        const futureAnnualSpend = (spendMo * 12) * Math.pow(1.035, yrs);
+        const fireTarget = futureAnnualSpend * 25;
+        const projectedCorpus = calcSIPMath(saveMo, r, yrs);
+        const gap = projectedCorpus - fireTarget;
+
+        for (let y = 0; y <= yrs; y++) {
+          seriesPrimary.push(y === 0 ? 0 : calcSIPMath(saveMo, r, y));
+          seriesSecondary.push((spendMo * 12 * Math.pow(1.035, y)) * 25);
+        }
+
+        mainLabel = `Projected Corpus at Age ${ageRet}`;
+        mainValue = fmtMoney(projectedCorpus);
+        mainSub = `Required FIRE Number (4% Safe Withdrawal Rule): ${fmtMoney(fireTarget)}`;
+        k1L = 'Years to Invest'; k1V = yrs + ' yrs';
+        k2L = 'FIRE Target (25x)'; k2V = fmtMoney(fireTarget);
+        k3L = gap >= 0 ? 'Projected Surplus' : 'Projected Shortfall';
+        k3V = (gap >= 0 ? '+' : '-') + fmtMoney(Math.abs(gap));
+
+        badT = `Conservative (${Math.max(2, r - 2)}%)`; badV = fmtMoney(calcSIPMath(saveMo, Math.max(2, r - 2), yrs)); badS = 'Lower market return';
+        baseT = `Expected (${r}%)`; baseV = fmtMoney(projectedCorpus); baseS = gap >= 0 ? '✓ On track for FIRE' : 'Needs higher savings';
+        goodT = `Save +20% More/Mo`; goodV = fmtMoney(calcSIPMath(saveMo * 1.2, r, yrs)); goodS = `Saving ${fmtMoney(saveMo * 1.2)}/mo`;
+
+        insight = gap >= 0
+          ? `<strong>FIRE Status — On Track:</strong> Your projected nest egg exceeds your inflation-adjusted 4% Safe Withdrawal target by <strong>${fmtMoney(gap)}</strong>.`
+          : `<strong>FIRE Gap Alert:</strong> To hit your inflation-adjusted retirement target of <strong>${fmtMoney(fireTarget)}</strong> by age ${ageRet}, consider stepping up your monthly savings or extending your horizon by 2–3 years.`;
+      }
+      else if (id === 'salary') {
+        const cur = currentInputs.currentSalary;
+        const hike = currentInputs.hike;
+        const inf = currentInputs.inflation;
+
+        const newSal = cur * (1 + hike / 100);
+        const raiseAmt = newSal - cur;
+        const realRaisePct = ((1 + hike / 100) / (1 + inf / 100) - 1) * 100;
+        const invest20Pct10Yrs = calcSIPMath((raiseAmt / 12) * 0.5, 12, 10);
+
+        for (let y = 0; y <= 10; y++) {
+          seriesPrimary.push(cur * Math.pow(1 + hike / 100, y));
+          seriesSecondary.push(cur * Math.pow(1 + inf / 100, y));
+        }
+
+        mainLabel = 'New Compensation After Raise';
+        mainValue = fmtMoney(newSal);
+        mainSub = `Real Purchasing Power Change (vs. ${inf}% Inflation): ${realRaisePct >= 0 ? '+' : ''}${realRaisePct.toFixed(2)}%`;
+        k1L = 'Nominal Raise'; k1V = '+' + fmtMoney(raiseAmt);
+        k2L = 'Nominal Hike %'; k2V = hike.toFixed(1) + '%';
+        k3L = 'Real Wage Gain'; k3V = (realRaisePct >= 0 ? '+' : '') + realRaisePct.toFixed(2) + '%';
+
+        badT = 'Spend 100% of Raise'; badV = fmtMoney(0); badS = 'Lifestyle creep eats hike';
+        baseT = 'Invest 50% of Raise (10Y)'; baseV = fmtMoney(invest20Pct10Yrs); baseS = 'Compounded at 12% p.a.';
+        goodT = 'Invest 80% of Raise (10Y)'; goodV = fmtMoney(calcSIPMath((raiseAmt / 12) * 0.8, 12, 10)); goodS = 'High wealth acceleration';
+
+        insight = realRaisePct > 0
+          ? `<strong>Real Wage Check:</strong> After subtracting ${inf}% inflation, your ${hike}% raise gives you a <strong>+${realRaisePct.toFixed(2)}% real increase</strong> in purchasing power. Investing half of your raise builds <strong>${fmtMoney(invest20Pct10Yrs)}</strong> in 10 years.`
+          : `<strong>Inflation Warning:</strong> Because your ${hike}% raise is below or equal to ${inf}% inflation, your real purchasing power actually changed by <strong>${realRaisePct.toFixed(2)}%</strong>.`;
+      }
+
+      // Update DOM
+      document.getElementById('res-main-label').innerText = mainLabel;
+      document.getElementById('res-main-value').innerText = mainValue;
+      document.getElementById('res-main-sub').innerText = mainSub;
+
+      document.getElementById('kpi-1-label').innerText = k1L;
+      document.getElementById('kpi-1-val').innerText = k1V;
+      document.getElementById('kpi-2-label').innerText = k2L;
+      document.getElementById('kpi-2-val').innerText = k2V;
+      document.getElementById('kpi-3-label').innerText = k3L;
+      document.getElementById('kpi-3-val').innerText = k3V;
+
+      document.getElementById('scen-bad-title').innerText = badT;
+      document.getElementById('scen-bad-val').innerText = badV;
+      document.getElementById('scen-bad-sub').innerText = badS;
+
+      document.getElementById('scen-base-title').innerText = baseT;
+      document.getElementById('scen-base-val').innerText = baseV;
+      document.getElementById('scen-base-sub').innerText = baseS;
+
+      document.getElementById('scen-good-title').innerText = goodT;
+      document.getElementById('scen-good-val').innerText = goodV;
+      document.getElementById('scen-good-sub').innerText = goodS;
+
+      document.getElementById('ws-insight').innerHTML = insight;
+
+      drawSVGChart(seriesPrimary, seriesSecondary);
+    }
+
+    function drawSVGChart(primary, secondary) {
+      const svg = document.getElementById('ws-svg-chart');
+      if (!primary || primary.length < 2) {
+        svg.innerHTML = '';
+        return;
+      }
+
+      const w = 500, h = 170, padX = 18, padY = 18;
+      const maxVal = Math.max(...primary, ...secondary, 1);
+
+      const toCoords = (arr) => arr.map((v, idx) => {
+        const x = padX + (idx / (arr.length - 1)) * (w - padX * 2);
+        const y = h - padY - (v / maxVal) * (h - padY * 2);
+        return `${x.toFixed(1)},${y.toFixed(1)}`;
+      });
+
+      const pPts = toCoords(primary);
+      const sPts = toCoords(secondary);
+
+      const areaPath = `M ${pPts[0]} L ${pPts.join(' L ')} L ${w - padX},${h - padY} L ${padX},${h - padY} Z`;
+      const primaryPath = `M ${pPts.join(' L ')}`;
+      const secondaryPath = `M ${sPts.join(' L ')}`;
+      const lastPt = pPts[pPts.length - 1].split(',');
+
+      svg.innerHTML = `
+        <defs>
+          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#147A46" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#147A46" stop-opacity="0.0"/>
+          </linearGradient>
+        </defs>
+        <line x1="${padX}" y1="${h - padY}" x2="${w - padX}" y2="${h - padY}" stroke="#E2DFD7" stroke-width="1"/>
+        <path d="${areaPath}" fill="url(#chartGrad)" />
+        <path d="${secondaryPath}" fill="none" stroke="#94A39E" stroke-width="2" stroke-dasharray="5 4" />
+        <path d="${primaryPath}" fill="none" stroke="#147A46" stroke-width="3.2" stroke-linecap="round" />
+        <circle cx="${lastPt[0]}" cy="${lastPt[1]}" r="5" fill="#147A46" />
+      `;
+    }
+
+    function changeCurrency(newCurr) {
+      currentCurrency = newCurr;
+      const mult = CURRENCIES[currentCurrency].mult;
+      const heroMonthly = 500 * mult;
+      const heroTotal = calcSIPMath(heroMonthly, 12, 10);
+
+      document.getElementById('hero-preview-monthly').innerText = fmtMoney(heroMonthly);
+      document.getElementById('hero-preview-total').innerText = fmtMoney(heroTotal);
+
+      selectCalculator(activeCalcId, false);
+    }
+
+    function switchView(viewName, scrollTop = true) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+
+      if (viewName === 'about') {
+        document.getElementById('view-about').classList.add('active');
+        document.getElementById('nav-about').classList.add('active');
+      } else if (viewName === 'contact') {
+        document.getElementById('view-contact').classList.add('active');
+        document.getElementById('nav-contact').classList.add('active');
+      } else if (viewName === 'legal') {
+        document.getElementById('view-legal').classList.add('active');
+      } else {
+        document.getElementById('view-home').classList.add('active');
+        document.getElementById('nav-home').classList.add('active');
+      }
+
+      if (scrollTop) window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToTools() {
+      switchView('home', false);
+      document.getElementById('tools-grid-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function scrollToHowItWorks() {
+      switchView('home', false);
+      document.getElementById('how-it-works-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contact-confirm').style.display = 'block';
+      e.target.reset();
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCalculatorCards();
+      selectCalculator('sip', false);
+    });
+  </script>
+</body>
+</html>
