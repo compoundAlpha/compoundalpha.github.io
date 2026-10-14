@@ -1047,22 +1047,21 @@
         <div class="eyebrow">Get In Touch</div>
         <h1>Questions, feedback, or calculator requests?</h1>
         <p>We are constantly expanding the Numivana toolkit. If you spot a formula edge-case or want us to build a new quantitative calculator, send us a message below.</p>
-        <form onsubmit="handleContactSubmit(event)" style="margin-top: 24px;">
-          <div class="input-group">
-            <label style="display:block; font-weight:600; margin-bottom:6px;">Your Name</label>
-            <input type="text" class="number-input" required placeholder="Alex Morgan" />
-          </div>
-          <div class="input-group">
-            <label style="display:block; font-weight:600; margin-bottom:6px;">Email Address</label>
-            <input type="email" class="number-input" required placeholder="alex@example.com" />
-          </div>
-          <div class="input-group">
-            <label style="display:block; font-weight:600; margin-bottom:6px;">Message or Tool Request</label>
-            <textarea class="number-input" rows="4" required placeholder="Tell us which calculator or feature you would like to see next..."></textarea>
-          </div>
-          <button type="submit" class="btn-primary">Send Message</button>
-          <p id="contact-confirm" style="color: var(--primary); font-weight: 600; margin-top: 14px; display: none;">✓ Thank you! Your message has been recorded.</p>
-        </form>
+       <form action="https://formspree.io/f/mbgdzvpk" method="POST" style="margin-top: 24px;">
+  <div class="input-group">
+    <label style="display:block; font-weight:600; margin-bottom:8px;">Your Name</label>
+    <input type="text" name="name" class="number-input" required placeholder="Alex Morgan">
+  </div>
+  <div class="input-group">
+    <label style="display:block; font-weight:600; margin-bottom:8px;">Email Address</label>
+    <input type="email" name="email" class="number-input" required placeholder="alex@example.com">
+  </div>
+  <div class="input-group">
+    <label style="display:block; font-weight:600; margin-bottom:8px;">Message or Tool Request</label>
+    <textarea name="message" class="number-input" rows="4" required placeholder="Tell us what financial scenario you want to model..."></textarea>
+  </div>
+  <button type="submit" class="btn-primary">Send Message</button>
+</form>
       </div>
     </div>
   </section>
